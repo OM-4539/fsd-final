@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: spring-boot-app
+  labels:
+    app: spring-boot-app
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: spring-boot-app
+  template:
+    metadata:
+      labels:
+        app: spring-boot-app
+    spec:
+      containers:
+        - name: spring-boot-cont
+          image: your-docker-repo/spring-boot-app:latest  # Replace with your image
+          ports:
+            - containerPort: 8080  # Change if your app runs on a different port
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: spring-boot-service
+spec:
+  type: LoadBalancer  # Change to LoadBalancer or NodePort if needed
+  ports:
+    - port: 8080
+      targetPort: 8080
+  selector:
+    app: spring-boot-app
+      ports:
+      - protocol: TCP
+        port: 8080     # Exposed service port
+        targetPort: 8080  # Container port where Spring Boot app is running

@@ -1,0 +1,31 @@
+version: '3.8'
+
+
+services:
+  springboot:
+    image: backend-img
+    container_name: backend-cont
+    build: 
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - "8081:8080"
+    networks:
+      - finalassessment-network
+
+  frontend:
+    image: frontend-img
+    container_name: frontend-cont
+    build: 
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "81:80"
+    depends_on:
+      - springboot
+    networks:
+      - finalassessment-network
+
+networks:
+  finalassessment-network:
+    driver: bridge

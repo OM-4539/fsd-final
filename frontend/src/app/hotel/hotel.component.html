@@ -1,0 +1,40 @@
+<form class="form" [formGroup]="hotelGroup">
+    <input  type="text" placeholder="City Name" [formControl]="city">
+    
+    <input  type="text" placeholder="Rating" [formControl]="rating">
+        <!-- @if(city.errors?.[min]){
+
+        } -->
+
+    <button class="btn" type="button" (click)="filterOnSubmit()">Submit</button>
+</form>
+<div class="container">
+
+    @for(hotel of hotels;track hotel.id){
+        <div class="hotel">
+            <div class="card-img">
+                <img [src]=hotel.imageurl alt="Image">
+            </div>
+            <div class="card-details">
+                <h3>Hotel Name: {{hotel.name}}</h3>
+                <p>Hotel City: {{hotel.city }}</p>
+                <p>Room Price: {{hotel.roomprice}}</p>
+                <p>Rating: {{hotel.rating }}</p>   
+                <div class="symbols">
+                    @if(hotel.wifi===('yes'|| "YES")){
+                        <i class="fa-solid fa-wifi"></i>
+                    }
+                    @if(hotel.gym===('yes'|| "YES")){
+                        <i class="fa-solid fa-dumbbell"></i>
+                    }
+                    @if(hotel.pool===('yes'|| "YES")){
+                        <i class="fa-solid fa-water-ladder"></i>
+                    }  
+                       
+                        
+                </div>
+               
+            </div>
+        </div>
+        }
+</div>
